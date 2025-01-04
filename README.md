@@ -11,7 +11,7 @@ The data is collected via sampling from archive.org. For each year, the latest a
 
 - **archive_date**: The date the data was archived.
 - **year**: The year to which the data corresponds.
-- **amount**: The minimum salary requirement for the specialist residence permit.
+- **amount**: The minimum salary requirement for each type in euro.
 - **type**: The permit type (e.g., erityisasiantuntija, eu-n-sininenkortti, tyontekijan-oleskelulupa; meaning specialist, EU Blue Card, and residence permit for an employee, respectively).
 
 - **archive_url**: The source URL from archive.org.
