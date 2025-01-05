@@ -33,6 +33,6 @@ The CSV file serves as the foundation for analyzing trends in salary requirement
 
 3. Install the required Python packages:
    ```bash
-    python -m pip install pandas numpy matplotlib seaborn
+    python -m pip install pandas numpy matplotlib seaborn requests
     ```
 4. Run the analysis script in Jupyter Notebook to generate the results. I personally use [Jupyter notebook extension in VS Code](https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
