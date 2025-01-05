@@ -18,6 +18,15 @@ The data is collected via sampling from archive.org. For each year, the latest a
 
 The CSV file serves as the foundation for analyzing trends in salary requirements over the years.
 
+### Consumer Price Index
+
+The Consumer Price Index (CPI) data is retrieved using the script located at `scripts/consumer_price_index_query.py`. This script sends a POST request to the Statistics Finland API to fetch monthly CPI data starting from 2015. The data is saved in a CSV file at `data/consumer_price_index.csv` with the following structure:
+
+- **Date**: The year and month in the format `YYYY-MM` (e.g., `2018-11`).
+- **CPI**: The consumer price index value for that month.
+
+This data enables the analysis of inflation trends and price level changes over time.
+
 ## Notebooks
 
 ## How to Use
