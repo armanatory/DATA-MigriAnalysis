@@ -7,6 +7,8 @@ An analysis of data from the Finnish Immigration Service (Migri)
 
 ### migri_residence_premit_salary_requirements_2018_2025.csv
 
+**Source: migri.fi** (via archive.org)
+
 The data is collected via sampling from archive.org. For each year, the latest available date is considered the value for that year. The data is stored in a CSV file with the following structure:
 
 - **archive_date**: The date the data was archived.
@@ -19,6 +21,8 @@ The data is collected via sampling from archive.org. For each year, the latest a
 The CSV file serves as the foundation for analyzing trends in salary requirements over the years.
 
 ### consumer_price_index.csv
+
+**Source: https://stat.fi/en**
 
 The Consumer Price Index (CPI) data is retrieved using the script located at `scripts/consumer_price_index_query.py`. This script sends a POST request to the Statistics Finland API to fetch monthly CPI data starting from 2015. The data is saved in a CSV file at `data/consumer_price_index.csv` with the following structure:
 
