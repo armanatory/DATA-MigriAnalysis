@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 
 # API Endpoint
 API_URL = "https://pxdata.stat.fi:443/PxWeb/api/v1/en/StatFin/ktps/statfin_ktps_pxt_14mr.px"
@@ -40,28 +41,28 @@ response = requests.post(API_URL, json=payload)
 if response.status_code == 200:
     data = response.json()
     
-    # Extracting dimensions and values
-    months = data["dimension"]["Kuukausi"]["category"]["label"]
-    industries = data["dimension"]["Toimiala"]["category"]["label"]
+    # Extract dimensions and values
+    months = list(data["dimension"]["Kuukausi"]["category"]["label"].values())
+    industries = list(data["dimension"]["Toimiala"]["category"]["label"].values())
     values = data["value"]
 
-    # Reshape the values into a DataFrame
-    df = pd.DataFrame(values, columns=["Index Value"])
-    
-    # Expand months and industries into readable format
-    df["Date"] = list(months.values()) * len(industries)
-    df["Industry"] = sum([[industry] * len(months) for industry in industries.values()], [])
-    
+    # Reshape the values into rows corresponding to months and industries
+    rows_per_month = len(industries)  # Number of industries per row
+    reshaped_values = np.array(values).reshape(-1, rows_per_month)
+
+    # Create a DataFrame
+    df = pd.DataFrame(reshaped_values, columns=industries)
+    df.insert(0, "Date", months)  # Insert the Date column at the beginning
+
+    # Replace "null" with NaN for proper handling of missing values
+    df.replace("null", np.nan, inplace=True)
+
     # Convert Date column to a readable format (e.g., "1995M01" to "1995-01")
     df["Date"] = df["Date"].str.replace("M", "-", regex=False)
 
-    # Pivot table for better readability
-    df_pivot = df.pivot(index="Date", columns="Industry", values="Index Value")
-    df_pivot.reset_index(inplace=True)
-
-    # Save the DataFrame to CSV
+    # Save the DataFrame to a CSV file
     output_filename = "data/wage_and_salary_indices.csv"
-    df_pivot.to_csv(output_filename, index=False)
+    df.to_csv(output_filename, index=False)
 
     print(f"Data saved successfully to {output_filename}")
 else:
